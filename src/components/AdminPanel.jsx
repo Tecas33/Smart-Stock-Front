@@ -15,7 +15,7 @@ function AdminPanel() {
   const [editingProduct, setEditingProduct] = useState(null);
 
   // O Vite exige o prefixo VITE_ para variáveis de ambiente
-  const API_URL = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => { fetchData(); }, []);
 
