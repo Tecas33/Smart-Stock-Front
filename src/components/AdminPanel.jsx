@@ -6,7 +6,7 @@ function AdminPanel() {
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   const [newCategory, setNewCategory] = useState('');
   const [editingCategory, setEditingCategory] = useState(null);
   const [productData, setProductData] = useState({
@@ -14,7 +14,8 @@ function AdminPanel() {
   });
   const [editingProduct, setEditingProduct] = useState(null);
 
-  const API_URL = 'http://127.0.0.1:8000/api';
+  // O Vite exige o prefixo VITE_ para variáveis de ambiente
+  const API_URL = import.meta.env.VITE_API_URL;
 
   useEffect(() => { fetchData(); }, []);
 
@@ -27,10 +28,10 @@ function AdminPanel() {
       ]);
       setProducts(prodRes.data.data);
       setCategories(catRes.data.data);
-    } catch (err) { 
-      console.error("Erro ao carregar dados"); 
-    } finally { 
-      setLoading(false); 
+    } catch (err) {
+      console.error("Erro ao carregar dados");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,7 +47,7 @@ function AdminPanel() {
       }
       setNewCategory('');
       await fetchData();
-    } catch (err) { 
+    } catch (err) {
       alert("Erro na operação");
       setLoading(false);
     }
@@ -64,7 +65,7 @@ function AdminPanel() {
       }
       setProductData({ name: '', price: '', stock: '', category_id: '', description: '' });
       await fetchData();
-    } catch (err) { 
+    } catch (err) {
       alert("Erro ao salvar produto");
       setLoading(false);
     }
@@ -97,7 +98,7 @@ function AdminPanel() {
 
   return (
     <div className="relative min-h-screen bg-gray-50 p-4 md:p-12 font-sans text-gray-900">
-      
+
       {/* --- APLICAÇÃO DO LOADER (OVERLAY) --- */}
       {loading && (
         <div className="fixed inset-0 bg-white/60 backdrop-blur-sm z-[9999] flex items-center justify-center">
@@ -113,13 +114,13 @@ function AdminPanel() {
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
+
           {/* FORMULÁRIOS */}
           <div className="space-y-6">
             <section className="bg-white p-6 rounded-2xl shadow-sm border-2 border-indigo-50">
               <h2 className="text-lg font-bold mb-4">{editingCategory ? '📝 Editar Categoria' : '📂 Nova Categoria'}</h2>
               <form onSubmit={handleCategorySubmit} className="flex gap-2">
-                <input 
+                <input
                   className="flex-1 bg-gray-50 border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-indigo-500 rounded-lg p-2.5 outline-none"
                   placeholder="Nome da Categoria"
                   value={newCategory}
@@ -130,41 +131,41 @@ function AdminPanel() {
                 </button>
               </form>
               {editingCategory && (
-                <button onClick={() => {setEditingCategory(null); setNewCategory('');}} className="text-xs text-red-500 mt-2 underline">Cancelar edição</button>
+                <button onClick={() => { setEditingCategory(null); setNewCategory(''); }} className="text-xs text-red-500 mt-2 underline">Cancelar edição</button>
               )}
             </section>
 
             <section className="bg-white p-6 rounded-2xl shadow-sm border-2 border-indigo-50">
               <h2 className="text-lg font-bold mb-4">{editingProduct ? '📝 Editando Produto' : 'Novo Produto'}</h2>
               <form onSubmit={handleProductSubmit} className="space-y-4">
-                <select 
+                <select
                   className="w-full bg-gray-50 border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-indigo-500 rounded-lg p-2.5 outline-none"
                   value={productData.category_id}
-                  onChange={(e) => setProductData({...productData, category_id: e.target.value})}
+                  onChange={(e) => setProductData({ ...productData, category_id: e.target.value })}
                   required
                 >
                   <option value="">Selecione a Categoria</option>
                   {categories.map(cat => <option key={cat.id} value={cat.id}>{cat.name}</option>)}
                 </select>
 
-                <input 
+                <input
                   className="w-full bg-gray-50 border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-indigo-500 rounded-lg p-2.5 outline-none"
                   placeholder="Nome do Produto"
-                  onChange={(e) => setProductData({...productData, name: e.target.value})}
+                  onChange={(e) => setProductData({ ...productData, name: e.target.value })}
                   value={productData.name} required
                 />
 
                 <div className="grid grid-cols-2 gap-4">
-                  <input 
+                  <input
                     type="number" step="0.01" className="bg-gray-50 border-none ring-1 ring-gray-200 rounded-lg p-2.5 outline-none"
                     placeholder="Preço €"
-                    onChange={(e) => setProductData({...productData, price: e.target.value})}
+                    onChange={(e) => setProductData({ ...productData, price: e.target.value })}
                     value={productData.price} required
                   />
-                  <input 
+                  <input
                     type="number" className="bg-gray-50 border-none ring-1 ring-gray-200 rounded-lg p-2.5 outline-none"
                     placeholder="Stock"
-                    onChange={(e) => setProductData({...productData, stock: e.target.value})}
+                    onChange={(e) => setProductData({ ...productData, stock: e.target.value })}
                     value={productData.stock} required
                   />
                 </div>
@@ -173,21 +174,21 @@ function AdminPanel() {
                   {editingProduct ? 'Salvar Alterações' : 'Cadastrar em Stock'}
                 </button>
                 {editingProduct && (
-                  <button type="button" onClick={() => {setEditingProduct(null); setProductData({name:'', price:'', stock:'', category_id:'', description:''})}} className="w-full text-sm text-gray-500">Cancelar</button>
+                  <button type="button" onClick={() => { setEditingProduct(null); setProductData({ name: '', price: '', stock: '', category_id: '', description: '' }) }} className="w-full text-sm text-gray-500">Cancelar</button>
                 )}
               </form>
             </section>
 
             <div className="bg-white p-4 rounded-xl border border-gray-100">
-                <h3 className="text-xs font-bold text-gray-400 uppercase mb-3 text-center">Categorias Ativas</h3>
-                <div className="flex flex-wrap gap-2 justify-center">
-                    {categories.map(cat => (
-                        <div key={cat.id} className="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border border-gray-200">
-                            <span className="text-sm font-medium">{cat.name}</span>
-                            <button onClick={() => {setEditingCategory(cat); setNewCategory(cat.name)}} className="text-[10px] hover:text-blue-500">✏️</button>
-                        </div>
-                    ))}
-                </div>
+              <h3 className="text-xs font-bold text-gray-400 uppercase mb-3 text-center">Categorias Ativas</h3>
+              <div className="flex flex-wrap gap-2 justify-center">
+                {categories.map(cat => (
+                  <div key={cat.id} className="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded-full border border-gray-200">
+                    <span className="text-sm font-medium">{cat.name}</span>
+                    <button onClick={() => { setEditingCategory(cat); setNewCategory(cat.name) }} className="text-[10px] hover:text-blue-500">✏️</button>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
