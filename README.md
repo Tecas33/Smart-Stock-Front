@@ -1,21 +1,25 @@
-# ⚛️ Smart Stock Client - React + Vite
+# 📦 SmartStock - Dashboard de Gestão (Front-end)
 
-Interface administrativa moderna para o Smart Stock. Focada em **User Experience (UX)**, esta aplicação oferece um painel reativo e intuitivo para gestão de inventário em tempo real.
+![React](https://img.shields.io/badge/react-%2320232d.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
+A interface do **SmartStock** é um painel administrativo moderno para controle de estoque, focado em usabilidade e performance. Consome de forma assíncrona a API REST desenvolvida em Laravel.
 
+## 🚀 Funcionalidades da Interface
+- **Dashboard Estatístico:** Visualização rápida do total de produtos.
+- **Gestão de Produtos:** Listagem dinâmica com busca e filtros.
+- **Consumo de API:** Integração completa com Axios para operações de CRUD.
+- **Feedback Visual:** Toasts e loaders para melhorar a experiência do usuário durante as requisições.
 
-## ✨ Diferenciais deste Frontend
-- **Async Workflow:** Gestão de estados assíncronos com feedback visual (Loader).
-- **Forced UX Delay:** Implementação de delay de 3s em operações críticas para garantir feedback visual fluido.
-- **Tailwind Design:** Interface mobile-first, limpa e profissional.
-- **Componentização:** Estrutura modular (Loader, Forms, Tables).
+## 🛠️ Tecnologias
+- **React.js / Vite:** Para uma estrutura de aplicação rápida.
+- **Tailwind CSS:** Estilização baseada em utilitários.
+- **Axios:** Cliente HTTP para comunicação com o Back-end.
+- **Lucide React:** Ícones minimalistas.
 
-## 🚀 Como Executar
-1. `npm install`
-2. Crie um arquivo `.env` e adicione:  
-   `VITE_API_URL=http://127.0.0.1:8000/api`
-3. `npm run dev`
+## ⚙️ Configuração
+1. Instale as dependências: `npm install`
+2. Configure a URL da API no arquivo `.env`: `VITE_API_URL=http://localhost:8000/api`
+3. Execute o projeto: `npm run dev`
 
-## ☁️ Deploy no Vercel
-Este projeto está pronto para deploy no Vercel. 
-*Nota: Certifique-se de configurar a variável de ambiente `VITE_API_URL` no painel da Vercel apontando para a sua API hospedada.*
+---
